@@ -11,7 +11,7 @@ export default function Home() {
         <meta property="og:image" content="/cover.jpg" />
       </Head>
       <main className="flex flex-col items-center justify-center min-h-screen text-center p-4">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Ovidiu.IT</h1>
+        <h1 className="text-4xl font-bold mb-4">Welcome to Ovidiu.IT 🎯</h1>
         <p className="text-xl mb-4">We deliver SEO, Automation & Framer websites with zero setup costs.</p>
         <img src="/cover.jpg" alt="Background" className="rounded-lg shadow-lg w-full max-w-3xl" />
       </main>
