@@ -3,7 +3,7 @@ import { transporter, sendAutoReply, sendOwnerNotice } from "@/lib/mail";
 import { canSendAutoReply } from "@/lib/ratelimit";
 import { renderAutoReplyHTML, renderAutoReplyText } from "@/lib/email-templates";
 
-export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 const OWNER_INBOX = process.env.CONTACT_INBOX || "digital@ovidiu.it.com";
 
