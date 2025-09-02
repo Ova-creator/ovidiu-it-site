@@ -13,25 +13,28 @@ export const viewport = {
 };
 
 export const metadata = {
-  metadataBase: new URL(siteUrl),
-  title: "Ovidiu.IT — Next.js, SEO & Automation",
-  description:
-    "Fast, clean, SEO-ready websites in Next.js. Technical SEO and automations that actually save time.",
-  alternates: { canonical: "/" },
+  title: "Ovidiu.IT — Next.js + SEO",
+  description: "Fast, SEO-ready websites that actually convert. Premium Next.js websites with automation and technical SEO.",
   openGraph: {
-    title: "Ovidiu.IT — Next.js, SEO & Automation",
-    description:
-      "Fast, clean, SEO-ready websites in Next.js. Technical SEO and automations that actually save time.",
-    url: "/",
+    title: "Ovidiu.IT — Next.js + SEO",
+    description: "Fast, SEO-ready websites that actually convert. Premium Next.js websites with automation and technical SEO.",
+    url: "https://ovidiu.it.com",
     siteName: "Ovidiu.IT",
-    images: [{ url: `${siteUrl}/og-image-1200x630.png`, width: 1200, height: 630 }],
+    images: [
+      {
+        url: "https://ovidiu.it.com/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Ovidiu.IT Preview",
+      },
+    ],
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ovidiu.IT — Next.js, SEO & Automation",
-    description:
-      "Fast, clean, SEO-ready websites in Next.js. Technical SEO and automations that actually save time.",
-    images: [`${siteUrl}/og-image-1200x630.png`],
+    title: "Ovidiu.IT — Next.js + SEO",
+    description: "Fast, SEO-ready websites that actually convert. Premium Next.js websites with automation and technical SEO.",
+    images: ["https://ovidiu.it.com/og-default.png"],
   },
 };
 
