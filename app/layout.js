@@ -2,11 +2,12 @@
 import "./globals.css";
 import Script from "next/script";
 import SiteHeader from "../components/SiteHeader";
+import Footer from "../components/Footer";
 import ScrollProgressBar from "../components/ScrollProgressBar";
+import FloatingWhatsapp from "../components/FloatingWhatsapp"; // 👈 import nou
 import { siteUrl, abs } from "../lib/site";
 
-// ———————————————————————————————————————
-// Viewport (mutăm themeColor aici ca să scăpăm de warning-ul Next.js)
+// Viewport
 export const viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#0B0B0F" },
@@ -14,8 +15,7 @@ export const viewport = {
   ],
 };
 
-// ———————————————————————————————————————
-// Metadata globală (Open Graph + Twitter folosesc PNG-ul static din /public/og/)
+// Global metadata
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -23,10 +23,8 @@ export const metadata = {
     template: "%s | Ovidiu.IT",
   },
   description:
-    "Affordable web design & SEO in the UK. Next.js expert building fast, secure, SEO-ready sites and smart automations.",
-  alternates: {
-    canonical: abs("/"),
-  },
+    "Affordable web design & SEO in the UK. Next.js expert building fast, secure, SEO-ready sites and time-saving automations.",
+  alternates: { canonical: abs("/") },
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -41,8 +39,6 @@ export const metadata = {
     ],
     other: [{ rel: "mask-icon", url: "/safari-pinned-tab.svg" }],
   },
-
-  // — Open Graph (folosește PNG-ul static)
   openGraph: {
     type: "website",
     url: abs("/"),
@@ -53,7 +49,7 @@ export const metadata = {
     locale: "en_GB",
     images: [
       {
-        url: abs("/og/og-image-1200x630.png"), // <= asigură-te că există în /public/og/
+        url: abs("/og/og-image-1200x630.png"),
         width: 1200,
         height: 630,
         alt: "Ovidiu.IT — Next.js, SEO & Automations",
@@ -61,33 +57,33 @@ export const metadata = {
       },
     ],
   },
-
-  // — Twitter Card
   twitter: {
     card: "summary_large_image",
-    site: "@",
-    creator: "@",
     title: "Ovidiu.IT — Next.js, SEO & Automations",
     description:
       "Fast, clean, SEO-ready websites in Next.js. Technical SEO and automations that actually save time.",
-    images: [abs("/og/og-image-1200x630.png")], // PNG static
+    images: [abs("/og/og-image-1200x630.png")],
   },
-
-  // Robots rămâne gestionat separat în app/robots.js (deja îl ai)
 };
 
-// ———————————————————————————————————————
-// Root layout
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body>
+      {/* Sticky-footer layout */}
+      <body className="min-h-screen flex flex-col">
         <ScrollProgressBar />
         <SiteHeader />
 
-        <main>{children}</main>
+        {/* main ocupă spațiul rămas */}
+        <main className="flex-1">{children}</main>
 
-        {/* JSON-LD global minim (opțional) */}
+        {/* footer jos, global */}
+        <Footer />
+
+        {/* floating WhatsApp pe toate paginile */}
+        <FloatingWhatsapp />
+
+        {/* Minimal JSON-LD Organization */}
         <Script
           id="org-jsonld"
           type="application/ld+json"
@@ -98,10 +94,7 @@ export default function RootLayout({ children }) {
               "@type": "Organization",
               name: "Ovidiu.IT",
               url: siteUrl,
-              sameAs: [
-                "https://www.linkedin.com/company/ovidiuit/",
-                // adaugă dacă ai și alte profile
-              ],
+              sameAs: ["https://www.linkedin.com/company/ovidiuit/"],
               logo: abs("/icon.png"),
             }),
           }}
