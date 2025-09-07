@@ -1,11 +1,17 @@
 // app/layout.js
 import "./globals.css";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 import SiteHeader from "../components/SiteHeader";
 import Footer from "../components/Footer";
 import ScrollProgressBar from "../components/ScrollProgressBar";
-import FloatingWhatsapp from "../components/FloatingWhatsapp"; // 👈 import nou
 import { siteUrl, abs } from "../lib/site";
+
+// Lazy-load pe client (reduce unused JS)
+const FloatingWhatsapp = dynamic(
+  () => import("../components/FloatingWhatsapp"),
+  { ssr: false, loading: () => null }
+);
 
 // Viewport
 export const viewport = {
@@ -80,7 +86,7 @@ export default function RootLayout({ children }) {
         {/* footer jos, global */}
         <Footer />
 
-        {/* floating WhatsApp pe toate paginile */}
+        {/* floating WhatsApp pe toate paginile (client-only, după interactivitate) */}
         <FloatingWhatsapp />
 
         {/* Minimal JSON-LD Organization */}

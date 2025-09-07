@@ -137,6 +137,8 @@ export default function HomePage() {
       </section>
 
       {/* GRID servicii */}
+      {/* h2 invizibil pentru ordine corectă a heading-urilor (evităm schimbări vizuale) */}
+      <h2 className="sr-only">Core Services</h2>
       <section className="grid md:grid-cols-3 gap-6">
         <article className="card-luxe">
           <h3 className="text-lg sm:text-xl font-semibold mb-2">Next.js Websites</h3>
