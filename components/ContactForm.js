@@ -215,7 +215,7 @@ export default function ContactForm() {
               id="website"
               name="website"
               type="url"
-              className="input w-full"
+             className="input w-full bg-zinc-900/80 border border-white/10 text-white placeholder-zinc-500 focus:ring-2 focus:ring-[var(--accent)]"
               placeholder="https://example.com"
             />
           </div>
