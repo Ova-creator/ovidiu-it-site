@@ -1,11 +1,15 @@
 "use client";
 import { useMemo, useState } from "react";
 
-/* GA helper — failsafe */
+/* GA helper — failsafe + beacon transport */
 function gaEvent(name, params = {}) {
   try {
     if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", name, params);
+      const payload = { transport_type: "beacon", ...params };
+      window.gtag("event", name, payload);
+      if (location.search.includes("ga_debug=1")) {
+        console.debug("[GA]", name, payload);
+      }
     }
   } catch {}
 }
@@ -44,17 +48,19 @@ export default function ContactForm() {
         setState({ loading: false, ok: true, error: "" });
         setJustSent(true);
 
-        // GA4 events
+        // GA4 events — trimise cu beacon + mic timeout pentru siguranță
         gaEvent("form_submit_success", {
           placement: "contact",
           service: payload.service || "(none)",
           budget: payload.budget || "(none)",
         });
-        gaEvent("lead_submitted", {
-          placement: "contact",
-          service: payload.service || "(none)",
-          budget: payload.budget || "(none)",
-        });
+        setTimeout(() => {
+          gaEvent("lead_submitted", {
+            placement: "contact",
+            service: payload.service || "(none)",
+            budget: payload.budget || "(none)",
+          });
+        }, 0);
 
         form.reset();
 
