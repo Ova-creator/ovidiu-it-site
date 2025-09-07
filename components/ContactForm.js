@@ -78,6 +78,9 @@ export default function ContactForm() {
     }
   }
 
+  const fieldClasses =
+    "input w-full bg-zinc-900/80 border border-white/10 text-white placeholder-zinc-500 focus:ring-2 focus:ring-[var(--accent)]";
+
   return (
     <div className="relative">
       {/* Toast */}
@@ -158,7 +161,7 @@ export default function ContactForm() {
               id="name"
               name="name"
               type="text"
-              className="input w-full"
+              className={fieldClasses}
               placeholder="John Doe"
               required
             />
@@ -171,7 +174,7 @@ export default function ContactForm() {
               id="email"
               name="email"
               type="email"
-              className="input w-full"
+              className={fieldClasses}
               placeholder="you@company.com"
               required
             />
@@ -181,7 +184,12 @@ export default function ContactForm() {
             <label className="block text-sm mb-1" htmlFor="service">
               Service
             </label>
-            <select id="service" name="service" className="select w-full" defaultValue="">
+            <select
+              id="service"
+              name="service"
+              className={fieldClasses}
+              defaultValue=""
+            >
               <option value="" disabled>
                 Choose a service…
               </option>
@@ -196,7 +204,12 @@ export default function ContactForm() {
             <label className="block text-sm mb-1" htmlFor="budget">
               Budget
             </label>
-            <select id="budget" name="budget" className="select w-full" defaultValue="">
+            <select
+              id="budget"
+              name="budget"
+              className={fieldClasses}
+              defaultValue=""
+            >
               <option value="" disabled>
                 Choose a range…
               </option>
@@ -215,7 +228,7 @@ export default function ContactForm() {
               id="website"
               name="website"
               type="url"
-             className="input w-full bg-zinc-900/80 border border-white/10 text-white placeholder-zinc-500 focus:ring-2 focus:ring-[var(--accent)]"
+              className={fieldClasses}
               placeholder="https://example.com"
             />
           </div>
@@ -227,7 +240,7 @@ export default function ContactForm() {
             <textarea
               id="message"
               name="message"
-              className="textarea w-full"
+              className={fieldClasses}
               rows={6}
               placeholder="Tell me about your goals, timeline, must-haves…"
               required
@@ -255,7 +268,9 @@ export default function ContactForm() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-ghost"
-            onClick={() => gaEvent("cta_whatsapp_click", { placement: "contact" })}
+            onClick={() =>
+              gaEvent("cta_whatsapp_click", { placement: "contact" })
+            }
           >
             Chat on WhatsApp
           </a>
