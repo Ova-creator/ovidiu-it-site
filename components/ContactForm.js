@@ -1,7 +1,7 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 
-/* GA helper (nu aruncă erori dacă gtag nu există) */
+/* GA helper — failsafe */
 function gaEvent(name, params = {}) {
   try {
     if (typeof window !== "undefined" && window.gtag) {
@@ -15,7 +15,6 @@ export default function ContactForm() {
   const [justSent, setJustSent] = useState(false);
   const [toast, setToast] = useState({ show: false, text: "" });
 
-  // WhatsApp link cu text + UTM incluse
   const waHref = useMemo(() => {
     const txt =
       "Hi Ovidiu, I just sent a quote request from ovidiu.it.com " +
@@ -29,7 +28,8 @@ export default function ContactForm() {
     setState({ loading: true, ok: false, error: "" });
 
     const fd = new FormData(form);
-    fd.set("hp_field", ""); // honeypot guard
+    // honeypot
+    fd.set("hp_field", "");
     const payload = Object.fromEntries(fd.entries());
 
     try {
@@ -44,7 +44,7 @@ export default function ContactForm() {
         setState({ loading: false, ok: true, error: "" });
         setJustSent(true);
 
-        // GA4: mark success + lead
+        // GA4 events
         gaEvent("form_submit_success", {
           placement: "contact",
           service: payload.service || "(none)",
@@ -58,7 +58,7 @@ export default function ContactForm() {
 
         form.reset();
 
-        // „Sent ✓” rămâne ~1.4s pe buton
+        // UX: “Sent ✓” ~1.4s
         setTimeout(() => setJustSent(false), 1400);
 
         // Toast 3s
@@ -73,7 +73,6 @@ export default function ContactForm() {
       setToast({ show: true, text: "Something went wrong. Please try again." });
       setTimeout(() => setToast({ show: false, text: "" }), 3000);
 
-      // GA4: mark error
       gaEvent("form_submit_error", { placement: "contact" });
       gaEvent("lead_submit_failed", { placement: "contact" });
     }
@@ -97,11 +96,11 @@ export default function ContactForm() {
         onSubmit={onSubmit}
         action="/api/contact"
         method="POST"
-        className="card p-6 md:p-8 space-y-4"
+        className="card p-6 md:p-8 space-y-5"
       >
         <h2 className="text-xl font-bold">Request a price quote</h2>
 
-        {/* SUCCES inline + CTA-uri */}
+        {/* Success banner + quick CTAs */}
         {state.ok && (
           <div>
             <div
@@ -111,7 +110,6 @@ export default function ContactForm() {
             >
               Thanks — your request was sent. I’ll get back to you shortly.
             </div>
-
             <div className="flex gap-2 pt-2">
               <a href="/projects" className="btn-ghost">
                 View Projects
@@ -131,7 +129,7 @@ export default function ContactForm() {
           </div>
         )}
 
-        {/* EROARE */}
+        {/* Error banner */}
         {state.error && (
           <div
             role="alert"
@@ -141,8 +139,127 @@ export default function ContactForm() {
           </div>
         )}
 
-        {/* Restul câmpurilor rămân identice */}
-        {/* ... */}
+        {/* HONEYPOT (anti-spam) */}
+        <input
+          type="text"
+          name="hp_check"
+          className="hidden"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+
+        {/* GRID fields */}
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm mb-1" htmlFor="name">
+              Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              className="input w-full"
+              placeholder="John Doe"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm mb-1" htmlFor="email">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="input w-full"
+              placeholder="you@company.com"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1" htmlFor="service">
+              Service
+            </label>
+            <select id="service" name="service" className="select w-full" defaultValue="">
+              <option value="" disabled>
+                Choose a service…
+              </option>
+              <option value="Website">Website (Next.js)</option>
+              <option value="SEO">SEO</option>
+              <option value="Automation">Automation</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1" htmlFor="budget">
+              Budget
+            </label>
+            <select id="budget" name="budget" className="select w-full" defaultValue="">
+              <option value="" disabled>
+                Choose a range…
+              </option>
+              <option value="Under £1,000">Under £1,000</option>
+              <option value="£1,000 – £3,000">£1,000 – £3,000</option>
+              <option value="£3,000 – £8,000">£3,000 – £8,000</option>
+              <option value="Over £8,000">Over £8,000</option>
+            </select>
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="block text-sm mb-1" htmlFor="website">
+              Current website (optional)
+            </label>
+            <input
+              id="website"
+              name="website"
+              type="url"
+              className="input w-full"
+              placeholder="https://example.com"
+            />
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="block text-sm mb-1" htmlFor="message">
+              Project details
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              className="textarea w-full"
+              rows={6}
+              placeholder="Tell me about your goals, timeline, must-haves…"
+              required
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 pt-2">
+          <button
+            type="submit"
+            className="btn-primary"
+            disabled={state.loading}
+            data-ga-event="cta_click"
+            data-ga-params='{"label":"Send quote request","section":"contact"}'
+          >
+            {state.loading
+              ? "Sending…"
+              : justSent
+              ? "Sent ✓"
+              : "Send request"}
+          </button>
+
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost"
+            onClick={() => gaEvent("cta_whatsapp_click", { placement: "contact" })}
+          >
+            Chat on WhatsApp
+          </a>
+        </div>
       </form>
     </div>
   );
