@@ -7,13 +7,11 @@ import Footer from "../components/Footer";
 import ScrollProgressBar from "../components/ScrollProgressBar";
 import { siteUrl, abs } from "../lib/site";
 
-// Lazy-load pe client (reduce unused JS)
-const FloatingWhatsapp = dynamic(
-  () => import("../components/FloatingWhatsapp"),
-  { ssr: false, loading: () => null }
-);
+const FloatingWhatsapp = dynamic(() => import("../components/FloatingWhatsapp"), {
+  ssr: false,
+  loading: () => null,
+});
 
-// Viewport
 export const viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#0B0B0F" },
@@ -21,7 +19,6 @@ export const viewport = {
   ],
 };
 
-// Global metadata
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -73,23 +70,18 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
   return (
     <html lang="en" className="scroll-smooth">
-      {/* Sticky-footer layout */}
       <body className="min-h-screen flex flex-col">
         <ScrollProgressBar />
         <SiteHeader />
-
-        {/* main ocupă spațiul rămas */}
         <main className="flex-1">{children}</main>
-
-        {/* footer jos, global */}
         <Footer />
-
-        {/* floating WhatsApp pe toate paginile (client-only, după interactivitate) */}
         <FloatingWhatsapp />
 
-        {/* Minimal JSON-LD Organization */}
+        {/* JSON-LD Organization */}
         <Script
           id="org-jsonld"
           type="application/ld+json"
@@ -105,6 +97,38 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
+
+        {/* GA4 – injectăm doar dacă există ID-ul în env */}
+        {GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}', { anonymize_ip: true });
+              `}
+            </Script>
+
+            {/* Event delegation: ascultăm click-uri pe elemente cu data-ga-event */}
+            <Script id="ga4-events" strategy="afterInteractive">
+              {`
+                document.addEventListener('click', function(e){
+                  var el = e.target.closest('[data-ga-event]');
+                  if(!el) return;
+                  var name = el.getAttribute('data-ga-event');
+                  var params = el.getAttribute('data-ga-params');
+                  try { params = params ? JSON.parse(params) : {}; } catch(_) { params = {}; }
+                  if (window.gtag) { gtag('event', name, params); }
+                }, { passive: true });
+              `}
+            </Script>
+          </>
+        ) : null}
       </body>
     </html>
   );

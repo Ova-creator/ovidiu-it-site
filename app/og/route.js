@@ -3,17 +3,21 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-// Load Inter Bold from /public/fonts at runtime
-async function loadFont(req, weight = 700) {
-  const fontUrl = new URL("/fonts/Inter-Bold.ttf", req.url);
-  const res = await fetch(fontUrl);
-  if (!res.ok) throw new Error("font fetch failed");
-  const data = await res.arrayBuffer();
-  return { name: "Inter", data, weight, style: "normal" };
+// Safe font loader: dacă eșuează, continuăm fără font custom.
+async function tryLoadFont(req, weight = 700) {
+  try {
+    const url = new URL("/fonts/Inter-Bold.ttf", req.url);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("font fetch failed");
+    const data = await res.arrayBuffer();
+    return { name: "Inter", data, weight, style: "normal" };
+  } catch (_e) {
+    return null; // fallback fără font
+  }
 }
 
 export async function GET(req) {
-  const font = await loadFont(req);
+  const maybeFont = await tryLoadFont(req);
 
   return new ImageResponse(
     (
@@ -39,29 +43,26 @@ export async function GET(req) {
         >
           <div
             style={{
+              fontFamily: maybeFont ? "Inter" : "system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell",
               fontSize: 56,
               lineHeight: 1.15,
               fontWeight: 800,
               letterSpacing: -1,
             }}
           >
-            Ovidiu.IT —{" "}
-            <span style={{ color: "#8BFFBF" }}>Next.js</span>, SEO & Automations
+            Ovidiu.IT — <span style={{ color: "#8BFFBF" }}>Next.js</span>, SEO & Automations
           </div>
           <div style={{ fontSize: 26, color: "#C8CBD0" }}>
-            Fast, clean, SEO-ready websites in Next.js. Technical SEO and
-            automations that actually save time.
+            Fast, clean, SEO-ready websites in Next.js. Technical SEO and automations that actually save time.
           </div>
-          <div style={{ fontSize: 22, color: "#9da3af" }}>
-            ovidiu.it.com • London, UK
-          </div>
+          <div style={{ fontSize: 22, color: "#9da3af" }}>ovidiu.it.com • London, UK</div>
         </div>
       </div>
     ),
     {
       width: 1200,
       height: 630,
-      fonts: [font],
+      fonts: maybeFont ? [maybeFont] : [],
     }
   );
 }
