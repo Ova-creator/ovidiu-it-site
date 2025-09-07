@@ -2,13 +2,9 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Ovidiu.IT — Next.js, SEO & Automations";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
 
-// Load Inter Bold from /public/fonts at runtime (works on Vercel)
+// Load Inter Bold from /public/fonts at runtime
 async function loadFont(req, weight = 700) {
-  // Build absolute URL to /fonts/Inter-Bold.ttf using the current request origin
   const fontUrl = new URL("/fonts/Inter-Bold.ttf", req.url);
   const res = await fetch(fontUrl);
   if (!res.ok) throw new Error("font fetch failed");
@@ -63,7 +59,8 @@ export async function GET(req) {
       </div>
     ),
     {
-      ...size,
+      width: 1200,
+      height: 630,
       fonts: [font],
     }
   );
