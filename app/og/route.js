@@ -2,132 +2,69 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const contentType = "image/png";
-export const alt = "Ovidiu.IT — OG";
+export const alt = "Ovidiu.IT — Next.js, SEO & Automations";
 export const size = { width: 1200, height: 630 };
+export const contentType = "image/png";
 
-const SITE =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || "https://ovidiu.it.com";
-
-// (opțional) înlocuiește cu fontul tău din /public/fonts/…  — Inter-Bold ca fallback
-async function loadFont(weight = 700) {
-  try {
-    const url = new URL("../../public/fonts/Inter-Bold.ttf", import.meta.url);
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("font fetch failed");
-    const data = await res.arrayBuffer();
-    return { name: "Inter", data, weight, style: "normal" };
-  } catch {
-    return undefined;
-  }
+// Load Inter Bold from /public/fonts at runtime (works on Vercel)
+async function loadFont(req, weight = 700) {
+  // Build absolute URL to /fonts/Inter-Bold.ttf using the current request origin
+  const fontUrl = new URL("/fonts/Inter-Bold.ttf", req.url);
+  const res = await fetch(fontUrl);
+  if (!res.ok) throw new Error("font fetch failed");
+  const data = await res.arrayBuffer();
+  return { name: "Inter", data, weight, style: "normal" };
 }
 
 export async function GET(req) {
-  const { searchParams } = new URL(req.url);
-
-  const title =
-    searchParams.get("title") ||
-    "Ovidiu.IT — Next.js, SEO & Automation";
-
-  const subtitle =
-    searchParams.get("subtitle") ||
-    "Fast, clean, SEO-ready websites in Next.js. Technical SEO & automations that save time.";
-
-  const strap = searchParams.get("strap") || "In AI we trust";
-
-  // Poți pune alt logo în /public/og/og-default.png
-  const logo = `${SITE}/og/og-default.png`;
-
-  const font = await loadFont();
+  const font = await loadFont(req);
 
   return new ImageResponse(
     (
       <div
         style={{
-          width: "1200px",
-          height: "630px",
+          width: "100%",
+          height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "56px",
-          background:
-            "radial-gradient(1200px 630px at 90% -10%, #5b21b6 0%, #111118 60%)",
+          background: "#0B0B0F",
           color: "white",
-          fontFamily: font ? "Inter" : "sans-serif",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 48,
         }}
       >
-        {/* top bar */}
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <img
-            src={logo}
-            width={64}
-            height={64}
-            style={{ borderRadius: 16, border: "2px solid rgba(255,255,255,.18)" }}
-          />
-          <div style={{ fontSize: 28, fontWeight: 800, letterSpacing: 0.2 }}>
-            Ovidiu.<span style={{ color: "#c084fc" }}>IT</span>
-          </div>
-          <div
-            style={{
-              marginLeft: "auto",
-              fontSize: 20,
-              color: "rgba(255,255,255,.7)",
-            }}
-          >
-            {strap}
-          </div>
-        </div>
-
-        {/* title + subtitle */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div
-            style={{
-              fontSize: 68,
-              fontWeight: 900,
-              lineHeight: 1.1,
-              textShadow: "0 6px 22px rgba(0,0,0,.35)",
-            }}
-          >
-            {title}
-          </div>
-          <div
-            style={{
-              fontSize: 30,
-              color: "rgba(255,255,255,.85)",
-              maxWidth: 980,
-            }}
-          >
-            {subtitle}
-          </div>
-        </div>
-
-        {/* footer */}
         <div
           style={{
+            maxWidth: 1000,
             display: "flex",
-            alignItems: "center",
-            gap: 18,
-            color: "rgba(255,255,255,.8)",
-            fontSize: 24,
+            flexDirection: "column",
+            gap: 24,
           }}
         >
           <div
             style={{
-              padding: "10px 16px",
-              borderRadius: 12,
-              background: "rgba(255,255,255,.06)",
-              border: "1px solid rgba(255,255,255,.12)",
+              fontSize: 56,
+              lineHeight: 1.15,
+              fontWeight: 800,
+              letterSpacing: -1,
             }}
           >
-            Next.js · Technical SEO · Automations
+            Ovidiu.IT —{" "}
+            <span style={{ color: "#8BFFBF" }}>Next.js</span>, SEO & Automations
           </div>
-          <div style={{ marginLeft: "auto", fontWeight: 700 }}>{SITE.replace(/^https?:\/\//, "")}</div>
+          <div style={{ fontSize: 26, color: "#C8CBD0" }}>
+            Fast, clean, SEO-ready websites in Next.js. Technical SEO and
+            automations that actually save time.
+          </div>
+          <div style={{ fontSize: 22, color: "#9da3af" }}>
+            ovidiu.it.com • London, UK
+          </div>
         </div>
       </div>
     ),
     {
       ...size,
-      fonts: font ? [font] : [],
+      fonts: [font],
     }
   );
 }
