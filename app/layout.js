@@ -74,14 +74,13 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en" className="scroll-smooth">
-      {/* Impact.com site verification */}
       <head>
+        {/* Impact.com Verification */}
         <meta
           name="impact-site-verification"
           content="d55de6d6-8f02-460f-8c8a-a8b622490c0e"
         />
       </head>
-
       <body className="min-h-screen flex flex-col">
         <ScrollProgressBar />
         <SiteHeader />
