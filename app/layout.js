@@ -78,7 +78,7 @@ export default function RootLayout({ children }) {
       <head>
         <meta
           name="impact-site-verification"
-          content="REPLACE_WITH_IMPACT_CODE"
+          content="d55de6d6-8f02-460f-8c8a-a8b622490c0e"
         />
       </head>
 
