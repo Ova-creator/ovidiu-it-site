@@ -8,10 +8,9 @@ export default function CopyLinkButton({ slug }) {
 
   async function handleCopy() {
     try {
-      // accesăm window doar la click (client-only), niciodată în render
       const origin =
         typeof window !== "undefined" ? window.location.origin : "";
-      const link = `${origin}/go/${slug}`;
+      const link = `${origin}/go/${slug}?track=1`; // ← varianta care loghează și la paste
       await navigator.clipboard.writeText(link);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
