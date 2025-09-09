@@ -176,3 +176,38 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) { *{ animation:none!important; transition:none!important; } }
+/* --- Mobile performance overrides (no visual change perceptibil) --- */
+@media (max-width: 640px){
+  /* GPU cheapening: mai puțin blur pe header */
+  .site-header{ backdrop-filter:none; background:rgba(10,10,12,.9); }
+
+  /* Elimină blur-ul din .hero-card pe mobile (cost mare) */
+  .hero-card{ backdrop-filter:none; }
+
+  /* Umbre mai ușoare la carduri (reduce paint cost) */
+  .card{ box-shadow:0 8px 22px rgba(0,0,0,.35); }
+
+  /* Background simplificat: fără radial mare (cost de compoziție) */
+  .site-bg{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.60)),
+      var(--bg-img);
+  }
+}
+
+/* Lazy rendering hint pentru secțiunile sub fold (folosește clasa unde e cazul) */
+.lazy-section{
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1000px; /* evită salturi vizuale */
+}
+@media (max-width: 640px){
+  .site-header{ backdrop-filter:none; background:rgba(10,10,12,.9); }
+  .hero-card{ backdrop-filter:none; }
+  .card{ box-shadow:0 8px 22px rgba(0,0,0,.35); }
+  .site-bg{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.60)),
+      var(--bg-img);
+  }
+}
+.lazy-section{ content-visibility:auto; contain-intrinsic-size:1px 1000px; }
