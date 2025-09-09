@@ -80,7 +80,15 @@ export default function RootLayout({ children }) {
           name="impact-site-verification"
           content="d55de6d6-8f02-460f-8c8a-a8b622490c0e"
         />
+
+        {/* --- Performance: preconnect pentru GA/GTM (reduce handshake) --- */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="" />
+        {/* DNS prefetch ca fallback vechi */}
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       </head>
+
       <body className="min-h-screen flex flex-col">
         <ScrollProgressBar />
         <SiteHeader />
@@ -131,6 +139,9 @@ export default function RootLayout({ children }) {
                   var params = el.getAttribute('data-ga-params');
                   try { params = params ? JSON.parse(params) : {}; } catch(_) { params = {}; }
                   if (window.gtag) { gtag('event', name, params); }
+                  if (window.dataLayer) {
+                    window.dataLayer.push(Object.assign({event: name}, params));
+                  }
                 }, { passive: true });
               `}
             </Script>
