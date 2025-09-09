@@ -1,4 +1,3 @@
-// components/Footer.js
 import Link from "next/link";
 
 export default function Footer() {
@@ -26,6 +25,7 @@ export default function Footer() {
             <Link href="/projects" className="hover:underline">Projects</Link>
             <Link href="/about" className="hover:underline">About</Link>
             <Link href="/blog" className="hover:underline">Blog</Link>
+            <Link href="/tools" className="hover:underline">Tools</Link>
             <Link href="/contact" className="hover:underline">Contact</Link>
           </nav>
 
