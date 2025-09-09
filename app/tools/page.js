@@ -51,6 +51,29 @@ function groupAffiliates() {
   return map;
 }
 
+// GA helper — trimite cta_click cu category=tools, label=:slug
+function trackVisit(slug) {
+  try {
+    // gtag direct, dacă există
+    if (typeof window !== "undefined" && typeof window.gtag === "function") {
+      window.gtag("event", "cta_click", {
+        category: "tools",
+        label: slug,
+        value: 1,
+      });
+    }
+    // fallback: dataLayer (pentru GTM) dacă e prezent
+    if (typeof window !== "undefined" && Array.isArray(window.dataLayer)) {
+      window.dataLayer.push({
+        event: "cta_click",
+        category: "tools",
+        label: slug,
+        value: 1,
+      });
+    }
+  } catch {}
+}
+
 export default function ToolsPage() {
   const grouped = groupAffiliates();
 
@@ -65,6 +88,31 @@ export default function ToolsPage() {
       url: `https://ovidiu.it.com/go/${a.slug}`,
       description: a.description,
     })),
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you earn commissions from these tools?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":
+            "Some links are affiliate. If you purchase through them, we may earn a commission at no extra cost to you. We only recommend tools we use or would use for client projects."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you pick the best tools for Next.js and SEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":
+            "We evaluate performance, reliability, documentation, pricing transparency, and real-world results in Next.js and SEO workflows."
+        }
+      }
+    ]
   };
 
   return (
@@ -85,10 +133,18 @@ export default function ToolsPage() {
         extra cost to you.
       </p>
 
+      {/* JSON-LD: ItemList + FAQ */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
+      {/* Micro-SEO: H2 scurt cu criterii (fără a schimba vizualul existent) */}
+      <h2 className="sr-only">How we pick the best tools for Next.js & SEO</h2>
 
       <div className="mt-10 space-y-10">
         {groups.map((g) => {
@@ -96,25 +152,21 @@ export default function ToolsPage() {
           if (!items.length) return null;
           return (
             <section key={g}>
-              <h2 className="text-2xl font-bold mb-4">{g}</h2>
+              <h3 className="text-2xl font-bold mb-4">{g}</h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {items.map((a) => (
                   <div key={a.slug} className="card">
                     <div className="p-5">
                       <div className="mb-2 flex items-center justify-between">
-                        <h3 className="text-lg sm:text-xl font-semibold">
+                        <h4 className="text-lg sm:text-xl font-semibold">
                           {a.name}
-                        </h3>
+                        </h4>
                         <Link
                           href={`/go/${a.slug}`}
                           target="_blank"
                           rel="noopener noreferrer sponsored nofollow"
                           className="btn-primary"
-                          data-ga-event="cta_click"
-                          data-ga-params={JSON.stringify({
-                            category: "tools",
-                            label: a.slug,
-                          })}
+                          onClick={() => trackVisit(a.slug)}
                         >
                           Visit
                         </Link>
