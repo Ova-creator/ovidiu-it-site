@@ -1,5 +1,6 @@
 // app/tools/page.js
 import VisitButton from "../../components/VisitButton";
+import CopyLinkButton from "../../components/CopyLinkButton";
 import { affiliates } from "../../data/affiliates";
 import { abs } from "../../lib/site";
 
@@ -139,8 +140,11 @@ export default function ToolsPage() {
                           {a.name}
                         </h4>
 
-                        {/* Client Component pentru click tracking */}
-                        <VisitButton href={`/go/${a.slug}`} slug={a.slug} />
+                        {/* Butoane: Visit + Copy link */}
+                        <div className="flex gap-2">
+                          <VisitButton href={`/go/${a.slug}`} slug={a.slug} />
+                          <CopyLinkButton slug={a.slug} />
+                        </div>
                       </div>
                       <p className="text-sm text-neutral-300">{a.description}</p>
                     </div>
