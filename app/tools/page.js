@@ -1,5 +1,5 @@
 // app/tools/page.js
-import Link from "next/link";
+import VisitButton from "../../components/VisitButton";
 import { affiliates } from "../../data/affiliates";
 import { abs } from "../../lib/site";
 
@@ -51,29 +51,6 @@ function groupAffiliates() {
   return map;
 }
 
-// GA helper — trimite cta_click cu category=tools, label=:slug
-function trackVisit(slug) {
-  try {
-    // gtag direct, dacă există
-    if (typeof window !== "undefined" && typeof window.gtag === "function") {
-      window.gtag("event", "cta_click", {
-        category: "tools",
-        label: slug,
-        value: 1,
-      });
-    }
-    // fallback: dataLayer (pentru GTM) dacă e prezent
-    if (typeof window !== "undefined" && Array.isArray(window.dataLayer)) {
-      window.dataLayer.push({
-        event: "cta_click",
-        category: "tools",
-        label: slug,
-        value: 1,
-      });
-    }
-  } catch {}
-}
-
 export default function ToolsPage() {
   const grouped = groupAffiliates();
 
@@ -93,26 +70,26 @@ export default function ToolsPage() {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
+    mainEntity: [
       {
         "@type": "Question",
-        "name": "Do you earn commissions from these tools?",
-        "acceptedAnswer": {
+        name: "Do you earn commissions from these tools?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text":
-            "Some links are affiliate. If you purchase through them, we may earn a commission at no extra cost to you. We only recommend tools we use or would use for client projects."
-        }
+          text:
+            "Some links are affiliate. If you purchase through them, we may earn a commission at no extra cost to you. We only recommend tools we use or would use for client projects.",
+        },
       },
       {
         "@type": "Question",
-        "name": "How do you pick the best tools for Next.js and SEO?",
-        "acceptedAnswer": {
+        name: "How do you pick the best tools for Next.js and SEO?",
+        acceptedAnswer: {
           "@type": "Answer",
-          "text":
-            "We evaluate performance, reliability, documentation, pricing transparency, and real-world results in Next.js and SEO workflows."
-        }
-      }
-    ]
+          text:
+            "We evaluate performance, reliability, documentation, pricing transparency, and real-world results in Next.js and SEO workflows.",
+        },
+      },
+    ],
   };
 
   return (
@@ -121,7 +98,7 @@ export default function ToolsPage() {
         Tools we use & recommend
       </h1>
 
-      {/* Intro SEO scurt, sub H1 */}
+      {/* Intro SEO sub H1 */}
       <p className="mt-2 text-center text-neutral-400 max-w-2xl mx-auto text-sm">
         Discover the <strong>best tools for Next.js &amp; SEO</strong> — curated
         hosting, analytics and automation platforms to build faster and rank higher.
@@ -143,7 +120,7 @@ export default function ToolsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      {/* Micro-SEO: H2 scurt cu criterii (fără a schimba vizualul existent) */}
+      {/* Micro-SEO: H2 semantic (screen-reader only) */}
       <h2 className="sr-only">How we pick the best tools for Next.js & SEO</h2>
 
       <div className="mt-10 space-y-10">
@@ -161,15 +138,9 @@ export default function ToolsPage() {
                         <h4 className="text-lg sm:text-xl font-semibold">
                           {a.name}
                         </h4>
-                        <Link
-                          href={`/go/${a.slug}`}
-                          target="_blank"
-                          rel="noopener noreferrer sponsored nofollow"
-                          className="btn-primary"
-                          onClick={() => trackVisit(a.slug)}
-                        >
-                          Visit
-                        </Link>
+
+                        {/* Client Component pentru click tracking */}
+                        <VisitButton href={`/go/${a.slug}`} slug={a.slug} />
                       </div>
                       <p className="text-sm text-neutral-300">{a.description}</p>
                     </div>
