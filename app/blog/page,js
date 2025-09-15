@@ -1,0 +1,22 @@
+// app/blog/page.js
+export const metadata = {
+  title: "Blog — Coming Soon",
+  description:
+    "Writeups and notes will land here soon. For now, browse projects and learning hubs.",
+  alternates: { canonical: "/blog" },
+};
+
+export default function BlogPlaceholder() {
+  return (
+    <div className="container mx-auto px-4 py-16">
+      <section className="bg-grid rounded-2xl p-8 text-center">
+        <h1 className="text-3xl font-bold tracking-tight">Blog</h1>
+        <p className="mt-3 text-zinc-400">
+          Coming soon. Meanwhile, check out the{" "}
+          <a href="/projects" className="underline">Projects</a> and{" "}
+          <a href="/learning" className="underline">Learning</a> pages.
+        </p>
+      </section>
+    </div>
+  );
+}

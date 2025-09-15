@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================
+   KALI BLUE — PREMIUM THEME
+   ============================ */
+:root{
+  --accent: #38bdf8;      /* cyan-400 */
+  --accent-strong:#0ea5e9;/* cyan-500 */
+  --accent-dark:#3b82f6;  /* blue-500 */
+  --bg-dark:#0b1220;
+  --bg-dark-2:#0b1324;
+  --bg-card:#1e293b;
+  --border:#334155;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+}
+
+html,body{
+  background:
+    radial-gradient(1200px 600px at 30% -10%, #13243c 0%, var(--bg-dark) 60%),
+    linear-gradient(to bottom, var(--bg-dark) 0%, var(--bg-dark-2) 100%);
+  color:var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  min-height:100%;
+}
+
+/* scanline subtil */
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:1;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(56,189,248,.02),
+    rgba(56,189,248,.02) 1px,
+    transparent 2px,
+    transparent 3px
+  );
+}
+
+/* ====== Layout helpers ====== */
+.container{ @apply mx-auto max-w-6xl px-4; }
+
+/* ====== Cards ====== */
+.card{
+  @apply rounded-xl p-5;
+  background-color:var(--bg-card);
+  border:1px solid var(--border);
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.card:hover{
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 10px 25px rgba(0,0,0,.35),
+    0 0 25px rgba(56,189,248,.15);
+  transform:translateY(-2px);
+  transition:box-shadow .25s ease, transform .25s ease;
+}
+.hero-card{ @apply py-10 md:py-14; }
+
+/* ====== BG grid / glows ====== */
+.bg-grid{
+  background-image:
+    radial-gradient(40rem 20rem at 10% 0%, rgba(56,189,248,.08), transparent 60%),
+    radial-gradient(40rem 20rem at 90% 0%, rgba(59,130,246,.06), transparent 60%);
+  background-repeat:no-repeat;
+}
+.hr-glow{
+  border:none; height:1px;
+  background:linear-gradient(90deg, rgba(56,189,248,0) 0%, rgba(56,189,248,.5) 50%, rgba(56,189,248,0) 100%);
+}
+
+/* ====== Buttons ====== */
+.btn-outline{
+  border:1px solid rgba(255,255,255,.2);
+  padding:.4rem .9rem;
+  border-radius:.75rem;
+  font-size:.9rem;
+  color:#e5e7eb;
+  transition:all .2s ease;
+}
+.btn-outline:hover{ border-color:rgba(56,189,248,.5); color:#38bdf8; }
+
+.btn-primary{
+  background:linear-gradient(135deg, var(--accent), var(--accent-dark));
+  padding:.45rem 1rem;
+  border-radius:.75rem;
+  font-size:.9rem;
+  color:white;
+  transition:all .2s ease;
+}
+.btn-primary:hover{ opacity:.95; transform:translateY(-1px); }
+
+/* ====== Premium links underline ====== */
+.link{ position:relative; transition:color .2s ease; }
+.link::after{
+  content:""; position:absolute; left:0; bottom:-2px; width:100%; height:2px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-dark));
+  transform:scaleX(0); transform-origin:left; transition:transform .25s ease-out;
+}
+.link:hover::after{ transform:scaleX(1); }
+.link-active{ color:var(--accent); }
+.link-active::after{ transform:scaleX(1); }
+
+/* Focus ring accesibil */
+a,button{ @apply focus:outline-none; }
+a:focus-visible,button:focus-visible{
+  box-shadow:0 0 0 2px var(--accent), 0 0 0 6px rgba(56,189,248,.2);
+  border-radius:12px;
+}
+
+/* ====== GLOBAL LOCK (logo) ======
+   Folosește pe titluri: <h1><span class="title-lock">Text</span></h1>
+   Culoare = currentColor; recomandat cyan în headinguri.
+*/
+.title-lock{
+  position:relative; padding-left:28px; display:inline-flex; align-items:center;
+}
+.title-lock::before{
+  content:""; position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:18px; height:18px;
+  /* SVG lock, stroke=currentColor => respectă culoarea textului */
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='11' width='18' height='11' rx='2' ry='2'/><path d='M7 11V7a5 5 0 0 1 10 0v4'/></svg>");
+  background-repeat:no-repeat; background-position:center; background-size:contain;
+  color: var(--accent); /* albastru Kali */
+  filter: drop-shadow(0 0 6px rgba(56,189,248,.45));
+}
+
+/* Mic glow pe SVG-urile din headings (dacă există) */
+h1 svg, h2 svg, h3 svg{ transition: filter .2s ease, transform .2s ease; }
+h1:hover svg, h2:hover svg, h3:hover svg{
+  filter: drop-shadow(0 0 8px rgba(56,189,248,.65));
+  transform: translateY(-1px);
+}
+/* Animated dividers — 2px + glow */
+.nav-divider,
+.footer-divider {
+  height: 2px;
+  width: 100%;
+  background-size: 200% 100%;
+  position: relative;
+}
+
+.nav-divider {
+  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.7), transparent);
+  animation: slide-right 4s linear infinite;
+  box-shadow: 0 0 8px rgba(56,189,248,0.35);
+}
+
+.footer-divider {
+  background: linear-gradient(270deg, transparent, rgba(56,189,248,0.7), transparent);
+  animation: slide-left 4s linear infinite;
+  box-shadow: 0 0 8px rgba(56,189,248,0.35);
+}
+
+@keyframes slide-right { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes slide-left  { from { background-position: -200% 0; } to { background-position: 200% 0; } }
