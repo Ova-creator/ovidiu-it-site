@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// acceptăm ?title=...&subtitle=...
+// Acceptă ?title=...&subtitle=...
 export default function OpengraphImage({ searchParams }) {
   const title =
     decodeURIComponent(searchParams?.title || "Ovidiu.IT — Cybersecurity & Ethical Hacking");
@@ -25,14 +25,30 @@ export default function OpengraphImage({ searchParams }) {
           position: "relative",
         }}
       >
+        {/* Benzi cyan discrete (compatibile cu next/og) */}
         <div
           style={{
             position: "absolute",
-            inset: 0,
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "10px",
             background:
-              "radial-gradient(600px 300px at 20% 5%, rgba(56,189,248,0.18), transparent 60%), radial-gradient(600px 300px at 80% 10%, rgba(59,130,246,0.16), transparent 60%)",
+              "linear-gradient(90deg, rgba(56,189,248,0), rgba(56,189,248,0.35), rgba(56,189,248,0))",
           }}
         />
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "10px",
+            background:
+              "linear-gradient(270deg, rgba(56,189,248,0), rgba(56,189,248,0.35), rgba(56,189,248,0))",
+          }}
+        />
+
         <div
           style={{
             fontFamily:
@@ -45,6 +61,7 @@ export default function OpengraphImage({ searchParams }) {
         >
           &gt;_ Ovidiu.IT
         </div>
+
         <div
           style={{
             fontFamily:
@@ -52,16 +69,23 @@ export default function OpengraphImage({ searchParams }) {
             fontSize: 50,
             color: "rgb(212,212,216)",
             marginBottom: 8,
+            textAlign: "center",
+            paddingLeft: 40,
+            paddingRight: 40,
           }}
         >
           {title}
         </div>
+
         <div
           style={{
             fontFamily:
               "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, 'Helvetica Neue'",
             fontSize: 34,
             color: "rgb(56,189,248)",
+            textAlign: "center",
+            paddingLeft: 40,
+            paddingRight: 40,
           }}
         >
           {subtitle}
