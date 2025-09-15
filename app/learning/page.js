@@ -1,4 +1,6 @@
 // app/learning/page.js
+export const revalidate = 3600;
+
 export const metadata = {
   title: "Learning — Roadmap to Ethical Hacking",
   description:
@@ -33,7 +35,6 @@ export default function LearningPage() {
         </nav>
       </header>
 
-      {/* NOW */}
       <section id="now" className="mt-10">
         <h2 className="section-title title-lock">What I’m learning now</h2>
         <hr className="hr-glow mb-4" />
@@ -65,7 +66,6 @@ export default function LearningPage() {
         </div>
       </section>
 
-      {/* 30/60/90 */}
       <section id="plan" className="mt-12">
         <h2 className="section-title title-lock">30/60/90 Day Plan</h2>
         <hr className="hr-glow mb-4" />
@@ -97,7 +97,6 @@ export default function LearningPage() {
         </div>
       </section>
 
-      {/* TOOLS */}
       <section id="tools" className="mt-12">
         <h2 className="section-title title-lock">Tools I use right now</h2>
         <hr className="hr-glow mb-4" />
@@ -129,7 +128,6 @@ export default function LearningPage() {
         </div>
       </section>
 
-      {/* ROUTINE */}
       <section id="routine" className="mt-12">
         <h2 className="section-title title-lock">Daily Routine (60–90 min)</h2>
         <hr className="hr-glow mb-4" />

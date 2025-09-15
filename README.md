@@ -1,4 +1,4 @@
-✅ Conținut README.md
+
 # Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio
 
 ![screenshot](public/preview.png)
@@ -55,7 +55,7 @@ components/
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/YOUR-USERNAME/ovidiu-it-portfolio.git
+   git clone https://github.com/YOUR-USERNAME/ovidiu-it-site.git
    cd ovidiu-it-portfolio
 
 
@@ -80,7 +80,7 @@ npm run dev
 
 🌐 Live Demo
 
-Deployed on Vercel → https://ovidiu.it
+Deployed on Vercel → https://ovidiu.it.com
 
 📬 Contact
 

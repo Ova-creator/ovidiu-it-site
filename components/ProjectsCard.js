@@ -1,104 +1,31 @@
-// components/ProjectCard.js
-// Card neutru care respectă .card, fără a rupe design system-ul.
-// Link policy: intern same-tab; extern new-tab + rel noopener noreferrer.
+import Image from "next/image";
 
-function isExternal(url) {
-  try {
-    const u = new URL(url);
-    return Boolean(u.protocol === "http:" || u.protocol === "https:");
-  } catch {
-    return false;
-  }
-}
-
-function formatDate(iso) {
-  if (!iso) return null;
-  try {
-    const d = new Date(iso);
-    // Ex: 2025-09-14 → 14 Sep 2025
-    return d.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-  } catch {
-    return null;
-  }
-}
-
-export default function ProjectCard({ project: p }) {
-  const href = p?.url || null;
-  const dateStr = formatDate(p?.date);
-
-  const CardInner = (
-    <>
-      {/* Cover (opțional) */}
-      {p?.cover && (
-        <div className="relative mb-3 h-40 w-full overflow-hidden rounded-xl bg-zinc-900/50">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={p.cover}
-            alt={`${p.title || "Project"} cover`}
-            className="h-full w-full object-cover opacity-90"
-            loading="lazy"
+export default function ProjectsCard({ title, description, status, date, url, cover }) {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-lg bg-zinc-900/40 p-4 shadow-md hover:bg-zinc-900/60 transition"
+    >
+      {cover && (
+        <div className="mb-3 relative w-full h-48 overflow-hidden rounded-md">
+          <Image
+            src={cover}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={false} // normal la carduri
           />
         </div>
       )}
-
-      <h3 className="text-lg font-semibold">{p?.title || "Untitled"}</h3>
-
-      {p?.summary ? (
-        <p className="mt-1 text-sm text-zinc-400">{p.summary}</p>
-      ) : null}
-
-      {/* Badges row: status / tags / date */}
-      {(p?.status || (p?.tags && p.tags.length > 0) || dateStr) && (
-        <div className="mb-2 mt-3 flex flex-wrap gap-2">
-          {p?.status && (
-            <span className="rounded-md border border-white/10 px-2 py-0.5 text-xs text-zinc-300">
-              {p.status}
-            </span>
-          )}
-          {Array.isArray(p?.tags) &&
-            p.tags.map((t) => (
-              <span
-                key={t}
-                className="rounded-md border border-white/10 px-2 py-0.5 text-xs text-zinc-300"
-              >
-                {t}
-              </span>
-            ))}
-          {dateStr && (
-            <span className="rounded-md border border-white/10 px-2 py-0.5 text-xs text-zinc-300">
-              {dateStr}
-            </span>
-          )}
-        </div>
-      )}
-    </>
+      <h3 className="text-lg font-semibold text-white">{title}</h3>
+      <p className="text-sm text-zinc-400 mt-1">{description}</p>
+      <div className="mt-2 flex items-center gap-2 text-xs text-zinc-500">
+        <span className="px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">{status}</span>
+        <span>{date}</span>
+      </div>
+    </a>
   );
-
-  // Link wrapper cu respectarea Link Policy
-  if (href) {
-    if (isExternal(href)) {
-      return (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="card hover:shadow-lg transition"
-        >
-          {CardInner}
-        </a>
-      );
-    }
-    return (
-      <a href={href} className="card hover:shadow-lg transition">
-        {CardInner}
-      </a>
-    );
-  }
-
-  // Fără link
-  return <div className="card hover:shadow-lg transition">{CardInner}</div>;
 }

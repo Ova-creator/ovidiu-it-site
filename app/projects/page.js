@@ -1,6 +1,9 @@
 // app/projects/page.js
-// Featured sus + Others jos + Filter Bar dinamic (query ?tag=...) + counters (accent cyan)
+import Image from "next/image";
 import { getProjects, getFeaturedProjects } from "../../lib/notion";
+import ImageFallback from "../../components/ImageFallback";
+
+export const revalidate = 60; // cache Notion 1 min
 
 function isExternal(url) {
   try {
@@ -19,23 +22,24 @@ function formatDate(iso) {
     return null;
   }
 }
+
 function ProjectCard({ project: p }) {
   const href = p?.url || null;
   const dateStr = formatDate(p?.date);
 
   const Cover = p?.cover ? (
     <div className="relative mb-3 h-48 w-full overflow-hidden rounded-xl bg-zinc-900/50">
-      <img src={p.cover} alt={`${p.title || "Project"} cover`} className="h-full w-full object-cover opacity-90" loading="lazy" />
+      <Image
+        src={p.cover}
+        alt={`${p.title || "Project"} cover`}
+        fill
+        className="object-cover opacity-90"
+        sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
+        priority={false}
+      />
     </div>
   ) : (
-    <div
-      className="relative mb-3 h-48 w-full overflow-hidden rounded-xl"
-      style={{
-        background:
-          "radial-gradient(120% 80% at 10% 0%, rgba(56,189,248,0.14), transparent 60%), radial-gradient(120% 80% at 90% 0%, rgba(59,130,246,0.12), transparent 60%), rgba(24,24,27,0.6)",
-        border: "1px solid rgba(255,255,255,0.06)",
-      }}
-    />
+    <ImageFallback className="mb-3 h-48 w-full" />
   );
 
   const Inner = (
@@ -99,7 +103,6 @@ function FilterBar({ activeTag, tags, tagCounts }) {
   return (
     <div className="mb-6 flex flex-wrap items-center gap-2">
       <span className="text-sm text-zinc-400 mr-2">Filter by tag:</span>
-
       <a
         href="/projects"
         className={
@@ -151,9 +154,7 @@ export default async function ProjectsPage({ searchParams }) {
 
   const tagCounts = {};
   for (const p of allProjects) {
-    for (const t of p.tags || []) {
-      tagCounts[t] = (tagCounts[t] || 0) + 1;
-    }
+    for (const t of p.tags || []) tagCounts[t] = (tagCounts[t] || 0) + 1;
   }
   const tags = Object.keys(tagCounts);
 

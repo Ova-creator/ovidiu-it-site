@@ -1,4 +1,6 @@
 // app/about/page.js
+export const revalidate = 3600;
+
 export const metadata = {
   title: "About — Ovidiu.IT",
   description:

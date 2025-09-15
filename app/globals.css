@@ -156,3 +156,11 @@ h1:hover svg, h2:hover svg, h3:hover svg{
 
 @keyframes slide-right { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 @keyframes slide-left  { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+html, body {
+  overflow-x: hidden; /* oprește glisarea stânga-dreapta pe mobil */
+}
+
+img { 
+  max-width: 100%;
+  height: auto;
+}

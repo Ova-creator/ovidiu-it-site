@@ -1,6 +1,10 @@
 // app/page.js
+import Image from "next/image";
 import { getFeaturedProjects } from "../lib/notion";
 import { Shield, Network, Terminal } from "lucide-react";
+import ImageFallback from "../components/ImageFallback";
+
+export const revalidate = 60; // cache fetch Notion 1 min
 
 function isExternal(url) {
   try {
@@ -16,17 +20,21 @@ function ProjectMini({ project: p }) {
 
   const Inner = (
     <>
-      {p?.cover && (
+      {p?.cover ? (
         <div className="relative mb-3 h-32 w-full overflow-hidden rounded-xl bg-zinc-900/50">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={p.cover}
             alt={`${p.title || "Project"} cover`}
-            className="h-full w-full object-cover opacity-90"
-            loading="lazy"
+            fill
+            className="object-cover opacity-90"
+            sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
+            priority={false}
           />
         </div>
+      ) : (
+        <ImageFallback className="mb-3 h-32 w-full" />
       )}
+
       <h3 className="text-base font-medium">{p?.title || "Untitled"}</h3>
       {p?.status && (
         <span className="mt-2 inline-block rounded-md border border-white/10 px-2 py-0.5 text-xs text-zinc-300">
@@ -55,7 +63,6 @@ function ProjectMini({ project: p }) {
       </a>
     );
   }
-
   return <div className="card hover:shadow-lg transition">{Inner}</div>;
 }
 
@@ -102,14 +109,13 @@ export default async function HomePage() {
           Hands-on labs, clean documentation, measurable progress.
         </p>
 
-        {/* Roadmap badge */}
         <div className="mt-5">
           <a
             href="/learning"
             className="inline-flex items-center gap-2 rounded-full border border-cyan-400/50 px-4 py-1.5 text-sm text-cyan-300 hover:border-cyan-400/70"
             style={{ boxShadow: "0 0 12px rgba(56,189,248,0.35)" }}
           >
-             Roadmap to Ethical Hacking
+            🚀 Roadmap to Ethical Hacking
           </a>
         </div>
 
@@ -127,8 +133,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* PILONI */}
+      {/* PILONI — adăugăm un H2 invizibil ca ordinea heading-urilor să fie corectă */}
       <section className="bg-grid container mx-auto px-4 py-10 rounded-2xl mt-8">
+        <h2 className="sr-only">Core Pillars</h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <div className="card hover:shadow-lg transition">
             <div className="mb-2 flex items-center gap-2">
