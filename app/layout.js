@@ -12,7 +12,7 @@ export const metadata = {
     siteName: "Ovidiu.IT",
     images: [
       {
-        url: "/og-default.png",
+        url: "/og-default.png", // ✅ static image
         width: 1200,
         height: 630,
         alt: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
@@ -25,9 +25,10 @@ export const metadata = {
     card: "summary_large_image",
     title: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
     description: "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking.",
-    images: ["/og-default.png"],
+    images: ["/og-default.png"], // ✅ static image
   },
 };
+
 
 
 
