@@ -1,0 +1,7 @@
+SVG (exportează-l la 180×180 PNG):
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180">
+  <rect width="180" height="180" rx="32" ry="32" fill="#0b1220"/>
+  <text x="50%" y="54%" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+        font-size="78" fill="#E5E7EB" dy=".1em">&gt;_</text>
+  <rect width="180" height="180" rx="32" ry="32" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="3"/>
+</svg>

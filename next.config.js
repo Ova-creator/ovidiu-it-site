@@ -3,13 +3,17 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     domains: [
-      // Notion-hosted covers (de obicei astea două)
+      "www.notion.so",
       "s3.us-west-2.amazonaws.com",
       "prod-files-secure.s3.us-west-2.amazonaws.com",
-      // dacă mai folosești și Unsplash
       "images.unsplash.com",
+    ],
+    remotePatterns: [
+      { protocol: "https", hostname: "www.notion.so" },
+      { protocol: "https", hostname: "s3.us-west-2.amazonaws.com" },
+      { protocol: "https", hostname: "prod-files-secure.s3.us-west-2.amazonaws.com" },
+      { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
 };
-
 module.exports = nextConfig;

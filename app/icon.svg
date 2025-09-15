@@ -1,0 +1,8 @@
+<!-- app/icon.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512">
+  <rect width="512" height="512" rx="96" ry="96" fill="#0b1220"/>
+  <text x="50%" y="55%" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+        font-size="220" fill="#E5E7EB" dy=".1em">&gt;_</text>
+  <!-- glow cyan subtil -->
+  <rect width="512" height="512" rx="96" ry="96" fill="none" stroke="rgba(56,189,248,0.35)" stroke-width="8"/>
+</svg>

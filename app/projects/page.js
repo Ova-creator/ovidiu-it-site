@@ -3,7 +3,7 @@ import Image from "next/image";
 import { getProjects, getFeaturedProjects } from "../../lib/notion";
 import ImageFallback from "../../components/ImageFallback";
 
-export const revalidate = 60; // cache Notion 1 min
+export const revalidate = 300; // 5 min
 
 function isExternal(url) {
   try {
@@ -139,7 +139,10 @@ export const metadata = {
   title: "Projects — Case Studies",
   description: "Cybersecurity & Ethical Hacking portfolio — featured labs and full project archive.",
   alternates: { canonical: "/projects" },
+  openGraph: { images: ["/opengraph-image.png?title=Projects&subtitle=Labs%20%E2%80%A2%20Writeups%20%E2%80%A2%20Results"] },
+  twitter:   { images: ["/twitter-image.png?title=Projects&subtitle=Labs%20%E2%80%A2%20Writeups%20%E2%80%A2%20Results"] },
 };
+
 
 export default async function ProjectsPage({ searchParams }) {
   const activeTag =

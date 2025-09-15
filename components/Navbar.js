@@ -1,79 +1,80 @@
+// components/Navbar.js
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
-
-function NavItem({ href, children }) {
-  const pathname = usePathname();
-  const active = pathname === href || (href !== "/" && pathname.startsWith(href));
-  return (
-    <Link href={href} className={`link ${active ? "link-active" : ""}`}>
-      {children}
-    </Link>
-  );
-}
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  // închide meniul când schimbă dimensiunea ecranului (ex. rotate)
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#0b1324cc] backdrop-blur">
-      <div className="container flex items-center justify-between py-3">
-        {/* Logo + lacăt + tagline */}
-        <Link href="/" className="brand group flex items-center gap-2">
-          {/* Lacăt mic, cyan */}
-          <span className="brand-lock inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
-            <svg viewBox="0 0 24 24" className="h-4 w-4 text-[var(--accent)]">
-              <path
-                d="M7 10V8a5 5 0 0 1 10 0v2m-9 0h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2Zm5 4v2"
-                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-              />
-            </svg>
+    <header className="sticky top-0 z-40 bg-[#0b1220]/80 backdrop-blur">
+      <nav className="container mx-auto flex items-center justify-between px-4 py-3">
+        {/* Brand */}
+        <a href="/" className="flex items-center gap-2">
+          <span className="text-white font-mono text-lg">&gt;_</span>
+          <span className="font-semibold">Ovidiu.IT</span>
+          <span className="hidden sm:inline text-xs text-cyan-300/80">
+            Cybersecurity • Networking • Linux
           </span>
-          <span className="text-xl font-semibold">Ovidiu.IT</span>
-          <span className="text-xs text-[var(--accent)]">Cybersecurity • Networking • Linux</span>
-          <span className="sr-only">Home</span>
-        </Link>
+        </a>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-6 md:flex">
-          <NavItem href="/">Home</NavItem>
-          <NavItem href="/projects">Projects</NavItem>
-          <NavItem href="/learning">Learning</NavItem>
-          <NavItem href="/about">About</NavItem>
-          <Link href="/contact" className="btn-primary">Contact</Link>
-        </nav>
+        <div className="hidden lg:flex items-center gap-5">
+          <a href="/" className="hover:opacity-90">Home</a>
+          <a href="/projects" className="hover:opacity-90">Projects</a>
+          <a href="/learning" className="hover:opacity-90">Learning</a>
+          <a href="/about" className="hover:opacity-90">About</a>
+          <a href="/contact" className="btn-primary">Contact</a>
+        </div>
 
-        {/* Burger */}
+        {/* Mobile burger */}
         <button
-          aria-label="Open menu"
-          className="md:hidden btn-ghost"
-          onClick={() => setOpen(true)}
+          type="button"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open ? "true" : "false"}
+          className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/10 hover:border-white/20"
+          onClick={() => setOpen((s) => !s)}
         >
-          Menu
-        </button>
-      </div>
-
-      {/* Mobile drawer */}
-      {open && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur" onClick={() => setOpen(false)}>
-          <div
-            className="absolute right-0 top-0 h-full w-80 border-l border-white/10 bg-[#0f172a] p-6"
-            onClick={(e) => e.stopPropagation()}
+          <span className="sr-only">Toggle navigation</span>
+          <svg
+            width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+            className="text-zinc-200"
           >
-            <div className="mb-6 flex items-center justify-between">
-              <span className="text-lg font-semibold">Menu</span>
-              <button className="btn-ghost" onClick={() => setOpen(false)}>Close</button>
-            </div>
-            <div className="grid gap-3">
-              <NavItem href="/">Home</NavItem>
-              <NavItem href="/projects">Projects</NavItem>
-              <NavItem href="/learning">Learning</NavItem>
-              <NavItem href="/about">About</NavItem>
-              <NavItem href="/blog">Blog</NavItem>
-              <Link href="/contact" className="btn-primary">Contact</Link>
-            </div>
+            {open ? (
+              <path d="M18 6L6 18M6 6l12 12" />
+            ) : (
+              <>
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </>
+            )}
+          </svg>
+        </button>
+      </nav>
+
+      {/* Linia animată sub navbar (rămâne identică) */}
+      <div className="nav-divider" />
+
+      {/* Mobile menu drawer */}
+      {open && (
+        <div className="lg:hidden border-t border-white/10 bg-[#0b1220]/95 backdrop-blur-sm">
+          <div className="container mx-auto px-4 py-3 flex flex-col gap-2">
+            <a href="/" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>Home</a>
+            <a href="/projects" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>Projects</a>
+            <a href="/learning" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>Learning</a>
+            <a href="/about" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>About</a>
+            <a href="/contact" className="btn-primary w-max" onClick={() => setOpen(false)}>Contact</a>
           </div>
         </div>
       )}

@@ -13,11 +13,13 @@ export default function ProjectsCard({ title, description, status, date, url, co
           <Image
             src={cover}
             alt={title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={false} // normal la carduri
-          />
+            width={600}
+            height={400}
+            className="rounded-md object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+            priority={false}
+      />
+
         </div>
       )}
       <h3 className="text-lg font-semibold text-white">{title}</h3>

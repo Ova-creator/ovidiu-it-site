@@ -4,7 +4,7 @@ import { getFeaturedProjects } from "../lib/notion";
 import { Shield, Network, Terminal } from "lucide-react";
 import ImageFallback from "../components/ImageFallback";
 
-export const revalidate = 60; // cache fetch Notion 1 min
+export const revalidate = 300; // 5 min
 
 function isExternal(url) {
   try {
@@ -71,7 +71,10 @@ export const metadata = {
   description:
     "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking. Real projects, real progress.",
   alternates: { canonical: "/" },
+  openGraph: { images: ["/opengraph-image.png?title=Home&subtitle=Cybersecurity%20%E2%80%A2%20Networking%20%E2%80%A2%20Linux"] },
+  twitter:   { images: ["/twitter-image.png?title=Home&subtitle=Cybersecurity%20%E2%80%A2%20Networking%20%E2%80%A2%20Linux"] },
 };
+
 
 function JsonLd() {
   const json = {
@@ -115,7 +118,7 @@ export default async function HomePage() {
             className="inline-flex items-center gap-2 rounded-full border border-cyan-400/50 px-4 py-1.5 text-sm text-cyan-300 hover:border-cyan-400/70"
             style={{ boxShadow: "0 0 12px rgba(56,189,248,0.35)" }}
           >
-            🚀 Roadmap to Ethical Hacking
+             Roadmap to Ethical Hacking
           </a>
         </div>
 
