@@ -3,18 +3,32 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 
 export const metadata = {
-  metadataBase: new URL("https://ovidiu.it"),
-  title: { default: "Ovidiu.IT — Cybersecurity & Ethical Hacking", template: "%s | Ovidiu.IT" },
-  description:
-    "Networking • Linux • Automation — portfolio of Ovidiu Strinu. Labs, notes, and roadmap to Ethical Hacking.",
-  openGraph: { siteName: "Ovidiu.IT", type: "website", locale: "en_GB" },
-  twitter: { card: "summary_large_image" },
-  alternates: { canonical: "/" },
-  icons: {
-    icon: "/icon.svg",                 // favicon tab (SVG)
-    apple: "/apple-icon.png",          // iOS home screen (PNG 180×180)
+  title: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
+  description: "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking.",
+  openGraph: {
+    title: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
+    description: "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking.",
+    url: "https://ovidiu.it/",
+    siteName: "Ovidiu.IT",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
+    description: "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking.",
+    images: ["/og-default.png"],
   },
 };
+
 
 
 export default function RootLayout({ children }) {
