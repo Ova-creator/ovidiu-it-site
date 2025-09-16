@@ -71,8 +71,7 @@ export const metadata = {
   description:
     "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking. Real projects, real progress.",
   alternates: { canonical: "/" },
-  openGraph: { images: ["/opengraph-image.png?title=Home&subtitle=Cybersecurity%20%E2%80%A2%20Networking%20%E2%80%A2%20Linux"] },
-  twitter:   { images: ["/twitter-image.png?title=Home&subtitle=Cybersecurity%20%E2%80%A2%20Networking%20%E2%80%A2%20Linux"] },
+ 
 };
 
 

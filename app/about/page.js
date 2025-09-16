@@ -6,8 +6,6 @@ export const metadata = {
   description:
     "About Ovidiu Strinu — learning path toward Ethical Hacking. Networking, Linux, and Automation.",
   alternates: { canonical: "/about" },
-  openGraph: { images: ["/opengraph-image.png?title=About&subtitle=Portfolio%20of%20Ovidiu%20Strinu"] },
-  twitter:   { images: ["/twitter-image.png?title=About&subtitle=Portfolio%20of%20Ovidiu%20Strinu"] },
 };
 
 

@@ -1,37 +1,12 @@
-// app/sitemap.js
-export default async function sitemap() {
-  const baseUrl = "https://ovidiu.it";
+import { SITE_URL } from "../lib/site";
 
+export default function sitemap() {
+  const base = SITE_URL;
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/learning`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
+    { url: `${base}/`,         lastModified: new Date() },
+    { url: `${base}/projects`, lastModified: new Date() },
+    { url: `${base}/learning`, lastModified: new Date() },
+    { url: `${base}/about`,    lastModified: new Date() },
+    { url: `${base}/contact`,  lastModified: new Date() },
   ];
 }

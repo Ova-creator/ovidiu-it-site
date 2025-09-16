@@ -6,8 +6,6 @@ export const metadata = {
   description:
     "My personal roadmap: Networking, Linux, and Automation foundations, moving step by step into Ethical Hacking.",
   alternates: { canonical: "/learning" },
-  openGraph: { images: ["/opengraph-image.png?title=Learning&subtitle=Roadmap%20to%20Ethical%20Hacking"] },
-  twitter:   { images: ["/twitter-image.png?title=Learning&subtitle=Roadmap%20to%20Ethical%20Hacking"] },
 };
 
 

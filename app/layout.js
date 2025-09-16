@@ -1,34 +1,39 @@
-// app/layout.js
 import "./globals.css";
 import Navbar from "../components/Navbar";
+import { SITE_URL } from "../lib/site";
 
 export const metadata = {
-  title: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
-  description: "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: "Ovidiu.IT — Cybersecurity & Ethical Hacking", template: "%s | Ovidiu.IT" },
+  description:
+    "Networking • Linux • Automation — portfolio of Ovidiu Strinu. Labs, notes, and roadmap to Ethical Hacking.",
   openGraph: {
-    title: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
-    description: "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking.",
-    url: "https://ovidiu.it/",
+    title: "Ovidiu.IT — Cybersecurity & Ethical Hacking",
+    description:
+      "Networking • Linux • Automation — portfolio of Ovidiu Strinu.",
+    url: SITE_URL,
     siteName: "Ovidiu.IT",
     images: [
       {
-        url: "/og-default.png", // ✅ static image
+        url: `${SITE_URL}/og-default.png`,   // ✅ absolut, PNG static
         width: 1200,
         height: 630,
-        alt: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
+        alt: ">_ Ovidiu.IT",
+        type: "image/png",
       },
     ],
-    locale: "en_US",
+    locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
-    description: "Kali-inspired portfolio: networking labs, Linux hardening, and automation for ethical hacking.",
-    images: ["/og-default.png"], // ✅ static image
+    title: "Ovidiu.IT — Cybersecurity & Ethical Hacking",
+    description:
+      "Networking • Linux • Automation — portfolio of Ovidiu Strinu.",
+    images: [`${SITE_URL}/og-default.png`],  // ✅ absolut
   },
+  alternates: { canonical: "/" },
 };
-
 
 
 
