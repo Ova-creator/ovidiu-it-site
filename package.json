@@ -23,7 +23,14 @@
     "to-ico": "^1.1.5"
   },
   "scripts": {
-    "gen:favicon": "node scripts/gen-favicon.mjs"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "gen:og": "node scripts/gen-og.mjs",
+    "gen:favicon": "node scripts/gen-favicon.mjs",
+    "assets:build": "npm run gen:og && npm run gen:favicon"
   }
 }
+
   

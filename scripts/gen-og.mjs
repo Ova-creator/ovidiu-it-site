@@ -61,19 +61,19 @@ const svg = `
   <!-- Logo line: >_ Ovidiu.IT -->
   <g transform="translate(120, 200)">
     <rect x="-12" y="-12" width="96" height="48" rx="12" fill="rgba(56,189,248,0.10)" stroke="rgba(56,189,248,0.35)"/>
-    <text x="6" y="22" fill="#67e8f9" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="28" font-weight="800">&gt;_</text>
+    <text x="6" y="22" fill="#67e8f9" font-family="ui-monospace, Menlo, Consolas, 'SFMono-Regular', monospace" font-size="28" font-weight="800">&gt;_</text>
 
-    <text x="120" y="22" fill="#ffffff" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto" font-size="64" font-weight="900" filter="url(#glow)">
+    <text x="120" y="22" fill="#ffffff" font-family="ui-monospace, Menlo, Consolas, 'SFMono-Regular', monospace" font-size="64" font-weight="900" letter-spacing="0.5" filter="url(#glow)">
       ${esc(title)}
     </text>
   </g>
 
   <!-- Headline -->
-  <text x="120" y="300" fill="#e5e7eb" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto"
+  <text x="120" y="300" fill="#e5e7eb" font-family="ui-monospace, Menlo, Consolas, 'SFMono-Regular', monospace"
     font-size="34" font-weight="800">${esc(headline)}</text>
 
   <!-- Subline -->
-  <text x="120" y="352" fill="#a3b3c4" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto"
+  <text x="120" y="352" fill="#a3b3c4" font-family="ui-monospace, Menlo, Consolas, 'SFMono-Regular', monospace"
     font-size="24" font-weight="600">${esc(subline)}</text>
 
   <!-- Subtle bottom edge -->
