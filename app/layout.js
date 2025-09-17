@@ -1,52 +1,65 @@
+// app/layout.js
 import "./globals.css";
 import Navbar from "../components/Navbar";
-import { SITE_URL } from "../lib/site";
+import SITE from "../lib/site"; // { name, url, ogImage, description }
 
 export const metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: { default: "Ovidiu.IT — Cybersecurity & Ethical Hacking", template: "%s | Ovidiu.IT" },
-  description:
-    "Networking • Linux • Automation — portfolio of Ovidiu Strinu. Labs, notes, and roadmap to Ethical Hacking.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} — Cybersecurity & Ethical Hacking`,
+    template: `%s — ${SITE.name}`,
+  },
+  description: SITE.description, // "Cybersecurity & Ethical Hacking ... Networking and Linux ..."
+  alternates: { canonical: "/" },
+
   openGraph: {
-    title: "Ovidiu.IT — Cybersecurity & Ethical Hacking",
-    description:
-      "Networking • Linux • Automation — portfolio of Ovidiu Strinu.",
-    url: SITE_URL,
-    siteName: "Ovidiu.IT",
+    type: "website",
+    url: SITE.url,
+    siteName: SITE.name,
+    title: `${SITE.name} — Cybersecurity & Ethical Hacking`,
+    description: SITE.description,
     images: [
       {
-        url: `${SITE_URL}/og-default.png`,   // ✅ absolut, PNG static
+        // format recomandat: relativ + metadataBase => URL absolut corect
+        url: SITE.ogImage,            // "/og/og-default.png"
         width: 1200,
         height: 630,
-        alt: ">_ Ovidiu.IT",
         type: "image/png",
+        alt: "Ovidiu.IT — Cybersecurity & Ethical Hacking Portfolio",
       },
     ],
     locale: "en_GB",
-    type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Ovidiu.IT — Cybersecurity & Ethical Hacking",
-    description:
-      "Networking • Linux • Automation — portfolio of Ovidiu Strinu.",
-    images: [`${SITE_URL}/og-default.png`],  // ✅ absolut
+    title: `${SITE.name} — Cybersecurity & Ethical Hacking`,
+    description: SITE.description,
+    images: [SITE.ogImage], // "/og/og-default.png"
   },
-  alternates: { canonical: "/" },
+
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-icon.svg",
+  },
 };
-
-
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#0b1220] text-zinc-100 antialiased flex flex-col">
+      <body className="min-h-screen flex flex-col bg-gradient-to-b from-[#0f172a] to-[#0a0f1c] text-white antialiased">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full max-w-7xl mx-auto px-6">{children}</main>
+
+        {/* Divider animat aliniat cu brand-ul */}
         <div className="footer-divider" />
+
+        {/* Footer simplu + CTA LinkedIn / Skills */}
         <footer className="container mx-auto px-4 py-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-sm text-zinc-400">© {new Date().getFullYear()} Ovidiu Strinu</p>
+            <p className="text-sm text-zinc-400">
+              © {new Date().getFullYear()} Ovidiu Strinu
+            </p>
             <div className="flex items-center gap-3">
               <a
                 href="https://www.linkedin.com/in/ovidiu-strinu/"
@@ -56,6 +69,7 @@ export default function RootLayout({ children }) {
               >
                 LinkedIn
               </a>
+              {/* Păstrăm ruta /learning, etichetată Skills */}
               <a href="/learning" className="btn-primary">Skills</a>
             </div>
           </div>
