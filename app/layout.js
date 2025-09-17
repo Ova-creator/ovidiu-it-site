@@ -1,7 +1,7 @@
 // app/layout.js
 import "./globals.css";
 import Navbar from "../components/Navbar";
-import SITE from "../lib/site";
+import SITE from "../lib/site"; // { name, url, ogImage, description }
 
 export const metadata = {
   metadataBase: new URL(SITE.url),
@@ -9,8 +9,9 @@ export const metadata = {
     default: `${SITE.name} — Cybersecurity & Ethical Hacking`,
     template: `%s — ${SITE.name}`,
   },
-  description: SITE.description,
+  description: SITE.description, // "Cybersecurity & Ethical Hacking ... Networking and Linux ..."
   alternates: { canonical: "/" },
+
   openGraph: {
     type: "website",
     url: SITE.url,
@@ -19,7 +20,8 @@ export const metadata = {
     description: SITE.description,
     images: [
       {
-        url: SITE.ogImage, // /og/og-default.png (served absolute via metadataBase)
+        // format recomandat: relativ + metadataBase => URL absolut corect
+        url: SITE.ogImage,            // "/og/og-default.png"
         width: 1200,
         height: 630,
         type: "image/png",
@@ -28,32 +30,18 @@ export const metadata = {
     ],
     locale: "en_GB",
   },
+
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} — Cybersecurity & Ethical Hacking`,
     description: SITE.description,
-    images: [SITE.ogImage],
+    images: [SITE.ogImage], // "/og/og-default.png"
   },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-      "max-video-preview": -1,
-    },
-  },
-  verification: {
-    // completează dacă ai coduri:
-    // google: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    // other: { me: ["mailto:digital@ovidiuit.com"] },
-  },
-  icons: {
-    icon: "/icon.svg",
-    apple: "/apple-icon.svg",
+
+ icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -64,9 +52,10 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="flex-1 w-full max-w-7xl mx-auto px-6">{children}</main>
 
-        {/* Divider animat (opțional) */}
+        {/* Divider animat aliniat cu brand-ul */}
         <div className="footer-divider" />
 
+        {/* Footer simplu + CTA LinkedIn / Skills */}
         <footer className="container mx-auto px-4 py-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-sm text-zinc-400">
@@ -81,6 +70,7 @@ export default function RootLayout({ children }) {
               >
                 LinkedIn
               </a>
+              {/* Păstrăm ruta /learning, etichetată Skills */}
               <a href="/learning" className="btn-primary">Skills</a>
             </div>
           </div>
