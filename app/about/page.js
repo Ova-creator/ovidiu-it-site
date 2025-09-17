@@ -1,59 +1,63 @@
 // app/about/page.js
-export const revalidate = 3600;
-
 export const metadata = {
   title: "About — Ovidiu.IT",
   description:
-    "About Ovidiu Strinu — learning path toward Ethical Hacking. Networking, Linux, and Automation.",
+    "Ovidiu Strinu — Cybersecurity & Ethical Hacking portfolio. Networking labs, Linux practice, and entry-level career goals.",
   alternates: { canonical: "/about" },
 };
 
-
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-10">
-      <section className="bg-grid rounded-2xl p-6 hero-card">
-        <h1 className="text-3xl font-bold tracking-tight">
-          <span className="title-lock">About</span>
-        </h1>
-        <p className="mt-2 text-zinc-300">
+    <div className="container mx-auto px-4 py-12">
+      {/* HERO */}
+      <section className="hero-card rounded-2xl px-6 py-8">
+        <h1 className="text-3xl font-bold title-lock">About</h1>
+        <p className="mt-3 max-w-3xl text-zinc-200">
           I’m <strong>Ovidiu Strinu</strong>. I’m building a career in{" "}
-          <strong>Cybersecurity &amp; Ethical Hacking</strong> by mastering the
-          foundations: <strong>Networking</strong>, <strong>Linux</strong>, and{" "}
-          <strong>Automation</strong>.
+          <strong>Cybersecurity & Ethical Hacking</strong> by mastering the
+          foundations: <strong>Networking</strong> and <strong>Linux</strong>.
+          I like projects with clear verification, clean documentation, and
+          measurable progress.
         </p>
       </section>
 
-      <section className="mt-10 grid gap-6 sm:grid-cols-2">
-        <div className="card p-4">
-          <h2 className="text-lg font-semibold title-lock">Where I am now</h2>
-          <ul className="mt-2 list-disc pl-5 text-sm text-zinc-400 space-y-1">
-            <li>Networking labs in Cisco Packet Tracer: VLANs, trunking, ROAS.</li>
-            <li>Basic Linux: users/groups, permissions, services, journaling.</li>
-            <li>Standard &amp; extended ACLs with validation (ping, traceroute, SSH).</li>
-            <li>Clear documentation for each lab (steps, results, conclusions).</li>
+      {/* CARDS */}
+      <section className="mt-8 grid gap-6 sm:grid-cols-2">
+        <div className="card rounded-2xl p-5">
+          <h2 className="mb-2 text-lg font-semibold text-zinc-100">
+            Where I am now
+          </h2>
+          <ul className="mt-2 space-y-2 text-sm text-zinc-300">
+            <li>• Networking labs in Cisco Packet Tracer: VLANs, trunking, ROAS.</li>
+            <li>• Basic Linux: users/groups, permissions, services, logs.</li>
+            <li>• Standard & extended ACLs with validation (ping, traceroute, SSH).</li>
+            <li>• Clear write-ups for each lab (steps, results, conclusions).</li>
           </ul>
         </div>
 
-        <div className="card p-4">
-          <h2 className="text-lg font-semibold title-lock">Why Ethical Hacking</h2>
-          <p className="mt-2 text-sm text-zinc-400">
-            I like problems that have proof. Ethical hacking gives me that: build a lab,
-            try an idea, validate, document, repeat. My goal is an entry-level role
-            where I can keep learning while delivering real, reproducible results.
+        <div className="card rounded-2xl p-5">
+          <h2 className="mb-2 text-lg font-semibold text-zinc-100">
+            Why Ethical Hacking
+          </h2>
+          <p className="mt-2 text-sm text-zinc-300">
+            I like problems that have proof. Ethical hacking gives me that: build
+            a lab, try an idea, validate, document, repeat. My goal is an
+            entry-level role where I can keep learning while delivering
+            reproducible results.
           </p>
-          <div className="mt-3 flex gap-3">
-            <a href="/contact" className="btn-primary">Contact</a>
-            <a
-              href="https://www.linkedin.com/in/ovidiu-strinu/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline"
-            >
-              LinkedIn
-            </a>
-          </div>
         </div>
+      </section>
+
+      {/* NEW SECTION */}
+      <section className="mt-8 card rounded-2xl p-5">
+        <h2 className="mb-2 text-lg font-semibold text-zinc-100">
+          What I’m looking for
+        </h2>
+        <ul className="mt-2 space-y-2 text-sm text-zinc-300">
+          <li>• Entry-level opportunities in cybersecurity or IT support.</li>
+          <li>• A place where I can apply networking & Linux skills hands-on.</li>
+          <li>• A team that values learning, documentation, and growth.</li>
+        </ul>
       </section>
     </div>
   );

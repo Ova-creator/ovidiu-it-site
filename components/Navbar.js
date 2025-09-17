@@ -29,10 +29,10 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-5">
-          <a href="/" className="hover:opacity-90">Home</a>
-          <a href="/projects" className="hover:opacity-90">Projects</a>
-          <a href="/learning" className="hover:opacity-90">Learning</a>
-          <a href="/about" className="hover:opacity-90">About</a>
+          <a href="/" className="hover:text-cyan-400">Home</a>
+          <a href="/projects" className="hover:text-cyan-400">Projects</a>
+          <a href="/learning" className="hover:text-cyan-400">Skills</a>
+          <a href="/about" className="hover:text-cyan-400">About</a>
           <a href="/contact" className="btn-primary">Contact</a>
         </div>
 
@@ -72,7 +72,7 @@ export default function Navbar() {
           <div className="container mx-auto px-4 py-3 flex flex-col gap-2">
             <a href="/" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>Home</a>
             <a href="/projects" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>Projects</a>
-            <a href="/learning" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>Learning</a>
+            <a href="/learning" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>Skills</a>
             <a href="/about" className="py-2 hover:opacity-90" onClick={() => setOpen(false)}>About</a>
             <a href="/contact" className="btn-primary w-max" onClick={() => setOpen(false)}>Contact</a>
           </div>

@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
               >
                 LinkedIn
               </a>
-              <a href="/learning" className="btn-primary">🚀 Roadmap</a>
+              <a href="/learning" className="btn-primary">Skills</a>
             </div>
           </div>
         </footer>
