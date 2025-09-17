@@ -38,10 +38,22 @@ export const metadata = {
     images: [SITE.ogImage], // "/og/og-default.png"
   },
 
- icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+  icons: {
+    icon: [
+      { url: '/favicon.ico?v=2' },
+      { url: '/favicon-32x32.png?v=2', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png?v=2', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png?v=2', sizes: '180x180' }],
+    other: [{ rel: 'mask-icon', url: '/safari-pinned-tab.svg?v=2', color: '#0ea5b7' }],
+  },
+  openGraph: {
+    // …
+    images: [{ url: 'https://ovidiu.it.com/og/og-default.png?v=2', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['https://ovidiu.it.com/og/og-default.png?v=2'],
   },
 };
 
