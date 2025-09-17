@@ -1,12 +1,13 @@
-import { SITE_URL } from "../lib/site";
+// app/sitemap.js
+import SITE from "../lib/site";
 
 export default function sitemap() {
-  const base = SITE_URL;
+  const lastModified = new Date();
   return [
-    { url: `${base}/`,         lastModified: new Date() },
-    { url: `${base}/projects`, lastModified: new Date() },
-    { url: `${base}/learning`, lastModified: new Date() },
-    { url: `${base}/about`,    lastModified: new Date() },
-    { url: `${base}/contact`,  lastModified: new Date() },
+    { url: `${SITE.url}/`, lastModified },
+    { url: `${SITE.url}/projects`, lastModified },
+    { url: `${SITE.url}/learning`, lastModified },
+    { url: `${SITE.url}/about`, lastModified },
+    { url: `${SITE.url}/contact`, lastModified },
   ];
 }
